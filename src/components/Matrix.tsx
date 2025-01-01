@@ -7,20 +7,15 @@ const Matrix: React.FC = () => {
     const areaSize = config["game-area-size"];
     const lifeArray: zeroOne[][] = getRandom(areaSize);
 
+    console.log('lifeArray: ', lifeArray);
+
     function getMatrix() {
-        return lifeArray.map(row =>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {getRow(row)}
-            </div>)
-    }
-
-    function getRow(row: zeroOne[]) {
-        return <Row cells={row} />
-
+        return lifeArray.map((row, index) =>            
+                <Row key={index} cells={row} />)
     }
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
             {getMatrix()}
         </div>
     )

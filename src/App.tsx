@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <Matrix />
     </div>
-  );
+  )
 }
 
 export default App;

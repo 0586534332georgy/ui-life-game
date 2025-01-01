@@ -1,4 +1,5 @@
 {
-    "game-area-size" : 50,
-    "game-tic-time" : 1000
+    "game-area-size": 50,
+    "game-tic-time": 1000,
+    "min-cell-size": 2
 }

@@ -1,15 +1,17 @@
 import { zeroOne } from "../model/zeroOne";
+import config from '../config/default-config.json'
 
 type Props = {
     cells: zeroOne[];
 }
 
 const Row: React.FC<Props> = ({cells}) => {
-    let cellSize = '2px';
+    const minSellSize = config["min-cell-size"];
+    let cellSize = `${minSellSize}px`;
 
-    const calculateCellWith = Math.trunc(Math.min(window.innerHeight, window.innerWidth) / cells.length);
+    const calculateCellWith = Math.min(window.innerHeight, window.innerWidth) / cells.length - 2;
 
-    if(calculateCellWith > 2) {
+    if(calculateCellWith > minSellSize) {
         cellSize = `${calculateCellWith}px`;
     }
 
@@ -17,11 +19,11 @@ const Row: React.FC<Props> = ({cells}) => {
         return cells.map((cell, index) => <div key={index} style={getStyles(cell)}></div>)
     }
 
-    function getStyles(cell: zeroOne) {
+    function getStyles(cell: zeroOne): React.CSSProperties {
         return {
-            backgroundColor: cell == 0 ?'white' : 'black',
-            heigh: cellSize,
-            with: cellSize
+            backgroundColor: cell == 0 ? 'white' : 'black',
+            height: cellSize,
+            width: cellSize
         }         
     }
 
