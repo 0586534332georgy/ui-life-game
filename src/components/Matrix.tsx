@@ -1,13 +1,9 @@
 import Row from "./Row"
-import config from './../config/default-config.json'
-import { zeroOne } from "../model/zeroOne";
-import getRandom from "../utils/generate-random";
 
-const Matrix: React.FC = () => {
-    const areaSize = config["game-area-size"];
-    const lifeArray: zeroOne[][] = getRandom(areaSize);
-
-    console.log('lifeArray: ', lifeArray);
+type Props = {
+    lifeArray:  number[][];
+}
+const Matrix: React.FC<Props> = ({lifeArray}) => {
 
     function getMatrix() {
         return lifeArray.map((row, index) =>            

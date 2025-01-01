@@ -1,8 +1,7 @@
-import { zeroOne } from "../model/zeroOne";
 import config from '../config/default-config.json'
 
 type Props = {
-    cells: zeroOne[];
+    cells: number[];
 }
 
 const Row: React.FC<Props> = ({cells}) => {
@@ -19,7 +18,7 @@ const Row: React.FC<Props> = ({cells}) => {
         return cells.map((cell, index) => <div key={index} style={getStyles(cell)}></div>)
     }
 
-    function getStyles(cell: zeroOne): React.CSSProperties {
+    function getStyles(cell: number): React.CSSProperties {
         return {
             backgroundColor: cell == 0 ? 'white' : 'black',
             height: cellSize,

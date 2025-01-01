@@ -1,10 +1,11 @@
 import './App.css';
-import Matrix from './components/Matrix';
+import { Life } from './components/Life';
+
 
 function App() {
   return (
     <div className="App">
-      <Matrix />
+      <Life />
     </div>
   )
 }

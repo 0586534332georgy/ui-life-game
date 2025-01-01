@@ -1,8 +1,5 @@
-import {zeroOne} from './../model/zeroOne'; 
-
-
-export default function getRandom(size: number): zeroOne[][] {
-    let res: zeroOne[][] = [];
+export default function getRandom(size: number): number[][] {
+    let res: number[][] = [];
     for(let i = 0; i < size; i ++) {
         res[i] = [];
         for(let j = 0; j < size; j++) {
@@ -10,9 +7,9 @@ export default function getRandom(size: number): zeroOne[][] {
         }
     }
 
-    function getRandomCell(): zeroOne {
+    function getRandomCell(): number {
         
-        return Math.trunc(Math.random() * 2) as zeroOne;
+        return Math.trunc(Math.random() * 2);
     }
 
     return res;

@@ -1,1 +1,0 @@
-export type zeroOne =  0 | 1;

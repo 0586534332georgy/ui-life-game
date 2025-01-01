@@ -1,18 +1,16 @@
-import { zeroOne } from "../model/zeroOne";
+import getRandom from "../utils/generate-random";
+import Matrix from "./Matrix"
+import config from './../config/default-config.json'
 
-export class Life {
-    constructor(private _dwellers: zeroOne[][]) {}
+export const Life: React.FC = () => {
 
-    getCells(): zeroOne[][] {
-        return this._dwellers;
-    }
+    const areaSize = config["game-area-size"];
+    const lifeArray: number[][] = getRandom(areaSize);
 
-    getMatrixArea(i: number, j: number): number {
-        const borderLeft: number = j == 0 ? 0 : j - 1;
-        const borderRight: number = j == this._dwellers[0].length ? j + 1 : j + 2;
+    return (
+        <div>
+            <Matrix lifeArray={lifeArray}/>
+        </div>
+    )
 
-        [this._dwellers[i - 1], this._dwellers[i], this._dwellers[i + 1]].reduce
-
-        return 0;
-    }
 }
