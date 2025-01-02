@@ -1,3 +1,4 @@
+import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 type Params = {
@@ -5,39 +6,61 @@ type Params = {
     ticInterval: number;
     setAreaSize: (s: number) => void;
     setTicInterval: (t: number) => void;
+    handleStartGame: () => void;
 }
 
-export const InputParameters: React.FC<Params> = ({areaSize, ticInterval, setAreaSize, setTicInterval}) => {
+export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAreaSize, setTicInterval, handleStartGame }) => {
     const [tmpAreaSize, setTmpAreaSize] = useState<string>('');
     const [tmpTicInterval, setTmpTicInterval] = useState<string>('');
 
-    function setNewParams() {
-        if (tmpAreaSize) setAreaSize(Number(tmpAreaSize));
+    function handleNewParams() {
+        if (tmpAreaSize) {
+            setAreaSize(Number(tmpAreaSize));
+            handleStartGame();
+        }
         if (tmpTicInterval) setTicInterval(Number(tmpTicInterval));
         setTmpAreaSize('');
         setTmpTicInterval('');
     }
 
+    const buttonText = tmpAreaSize ? 'Set parameters and start new Game' : 'Set new tic for current Game';
+    const areaLabel = `now is ${areaSize}`;
+    const ticLabel = `now is ${ticInterval}`;
+
     return (
-        <div style={{display:'flex', flexDirection:'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h1>Game parameters:</h1>
-            <h2>Live view</h2>
-            <span>Area size, cells</span>
-            <input title="input Game area size" 
-                    value={tmpAreaSize}
-                    placeholder={`now is ${areaSize}`} 
-                    onChange={e => {
-                        if(!isNaN(Number(e.target.value))) setTmpAreaSize(e.target.value);
-                    }} />
-            <span>Tic interval, ms</span>
-            <input title="input Tic interval" placeholder={`now is ${ticInterval}`} 
-                    value={tmpTicInterval}
-                    onChange={e => {
-                        if(!isNaN(Number(e.target.value))) setTmpTicInterval(e.target.value)
-                        }} />
-            {(tmpAreaSize || tmpTicInterval) 
-                && <button onClick={() => setNewParams()}>Set parameters and start new Game</button>}
+            <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Live view</Typography>
+            <Typography variant="subtitle1" gutterBottom>Input area size, cells</Typography>
+            <TextField id="standard-basic" label={areaLabel} variant="standard"
+                value={tmpAreaSize}
+                placeholder={areaSize.toString()}
+                onChange={e => {
+                    if (!isNaN(Number(e.target.value))) {
+                        const value = e.target.value.replace("-", "");
+                        setTmpAreaSize(value);
+                    }
+                }} />
+
+            <Typography variant="subtitle1" gutterBottom>Input tic interval, ms</Typography>
+            <TextField id="standard-basic" label={ticLabel} variant="standard"
+                placeholder={ticInterval.toString()}
+                value={tmpTicInterval}
+                onChange={e => {
+                    if (!isNaN(Number(e.target.value))) {
+                        const value = e.target.value.replace("-", "");
+                        setTmpTicInterval(value)
+                    }
+                }} />
+
+            {(tmpAreaSize || tmpTicInterval)
+                &&
+                <Button variant="outlined"
+                    style={{ color: "green", margin: '10px' }}
+                    onClick={() => handleNewParams()}>
+                    {buttonText}
+                </Button>
+            }
         </div>
     )
-
 }

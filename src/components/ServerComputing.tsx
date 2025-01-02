@@ -1,4 +1,6 @@
+import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import SendIcon from '@mui/icons-material/Send';
 
 export const ServerComputing = () => {
     const [tmpAreaSize, setTmpAreaSize] = useState<string>('');
@@ -10,15 +12,26 @@ export const ServerComputing = () => {
     }
 
     return (<div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h2>Server computing</h2>
-        <span>Area size, cells</span>
-        <input title="input Game area size"
+
+        <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Server computing</Typography>
+        <Typography variant="subtitle1" gutterBottom>Input game area for server computig, cells</Typography>
+        <TextField id="standard-basic" label="recomended: [1'000 - 1'000'000]"
             value={tmpAreaSize}
-            placeholder='input game area for server computig'
+            variant="standard"
             onChange={e => {
-                if(!isNaN(Number(e.target.value))) setTmpAreaSize(e.target.value)
-            }}/>
+                if (!isNaN(Number(e.target.value))) {
+                    const value = e.target.value.replace("-", "");
+                    setTmpAreaSize(value)
+                }
+            }} />
+
         {tmpAreaSize
-            && <button onClick={() => handleServerComputing()}>Execute computing on server</button>}
+            && <Button onClick={() => handleServerComputing()}
+                variant="contained"
+                sx={{ backgroundColor: 'orange', margin: '10px' }}
+                endIcon={<SendIcon />}>
+                Execute computing on server
+            </Button>
+        }
     </div>)
 }
