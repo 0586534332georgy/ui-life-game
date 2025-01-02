@@ -4,24 +4,35 @@ import config from './../config/default-config.json'
 import { useEffect, useRef, useState } from "react";
 import { LifeMatrix } from "../services/LifeMatrix";
 
-export const Life: React.FC = () => {
+type Props = {
+    areaSize: number;
+    gameTicInterval: number;
+}
 
-    const areaSize = config["game-area-size"];
-    const gameTicInterval = config["game-tic-interval"]
+export const Life: React.FC<Props> = ({areaSize, gameTicInterval}) => {
+
     const [lifeArray, setLifeArray] = useState<number[][]>([]);    
     const lifeMatrix = useRef<LifeMatrix>();
 
     function tic() {
         if(lifeMatrix.current == null) {
-            lifeMatrix.current = new LifeMatrix(getRandomMatrix(areaSize));
+            getNewLifeMatrix();
         };
-        setLifeArray(lifeMatrix.current.nextGeneration());
+        setLifeArray(lifeMatrix.current!.nextGeneration());
     }
 
     useEffect(() => {
         const interval = setInterval(tic, gameTicInterval);
         return () => clearInterval(interval);
     }, [gameTicInterval])
+
+    useEffect(() => {
+        getNewLifeMatrix();
+    }, [areaSize]);
+
+    function getNewLifeMatrix() {
+        lifeMatrix.current = new LifeMatrix(getRandomMatrix(areaSize));
+    }
 
     return (
         <div>

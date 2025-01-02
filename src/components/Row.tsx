@@ -23,7 +23,7 @@ const Row: React.FC<Props> = ({cells}) => {
             backgroundColor: cell == 0 ? 'white' : 'black',
             borderStyle: 'solid',
             borderWidth: '1px',
-            borderColor: cell == 1 ? 'white' : 'black',
+            borderColor: 'lightskyblue',
             height: cellSize,
             width: cellSize
         }         
