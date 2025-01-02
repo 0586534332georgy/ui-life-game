@@ -26,13 +26,17 @@ export const InputParameters: React.FC<Params> = ({areaSize, ticInterval, setAre
             <input title="input Game area size" 
                     value={tmpAreaSize}
                     placeholder={`now is ${areaSize}`} 
-                    onChange={e => setTmpAreaSize(e.target.value)} />
+                    onChange={e => {
+                        if(!isNaN(Number(e.target.value))) setTmpAreaSize(e.target.value);
+                    }} />
             <span>Tic interval, ms</span>
             <input title="input Tic interval" placeholder={`now is ${ticInterval}`} 
                     value={tmpTicInterval}
-                    onChange={e => setTmpTicInterval(e.target.value)} />
+                    onChange={e => {
+                        if(!isNaN(Number(e.target.value))) setTmpTicInterval(e.target.value)
+                        }} />
             {(tmpAreaSize || tmpTicInterval) 
-                && <button onClick={() => setNewParams()}>Set parameters</button>}
+                && <button onClick={() => setNewParams()}>Set parameters and start new Game</button>}
         </div>
     )
 
