@@ -21,6 +21,9 @@ const Row: React.FC<Props> = ({cells}) => {
     function getStyles(cell: number): React.CSSProperties {
         return {
             backgroundColor: cell == 0 ? 'white' : 'black',
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            borderColor: cell == 1 ? 'white' : 'black',
             height: cellSize,
             width: cellSize
         }         
