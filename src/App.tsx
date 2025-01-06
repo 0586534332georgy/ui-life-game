@@ -6,11 +6,19 @@ import config from './config/default-config.json'
 import { ServerComputing } from './components/ServerComputing';
 import { Button } from '@mui/material';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import ChartArea from './components/ChartArea';
+
+type DataType = {
+  dataKey: string,
+  alive: number,
+  dead: number,
+}
 
 function App() {
   const [areaSize, setAreaSize] = useState<number>(config["game-area-size"]);
   const [gameTicInterval, setGameTicInterval] = useState<number>(config["game-tic-interval"]);
   const [startGame, setStartGame] = useState<boolean>(false);
+  const [datas, setDatas] = useState<DataType[]>([]);
 
   function handleStartGame() {
     setStartGame(false);
@@ -22,7 +30,12 @@ function App() {
       display: 'flex', flexDirection: 'row',
       height: '100vh', justifyContent: 'center'
     }}>
-      {startGame && <Life areaSize={areaSize} gameTicInterval={gameTicInterval} />}
+
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+        {startGame && <Life areaSize={areaSize} gameTicInterval={gameTicInterval} />}
+        <ChartArea data={datas} />
+      </div>
+      
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
         <InputParameters areaSize={areaSize} ticInterval={gameTicInterval}
           setAreaSize={setAreaSize} setTicInterval={setGameTicInterval} handleStartGame={handleStartGame} />
@@ -34,7 +47,7 @@ function App() {
           Start new Game
         </Button>
 
-        <ServerComputing />
+        <ServerComputing datas={datas} setDatas={setDatas}/>
       </div>
     </div>
   )

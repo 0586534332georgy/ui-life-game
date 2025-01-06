@@ -8,7 +8,7 @@ import { fetchServerInit, fetchServerNext } from "../utils/fetchServer";
 type ResponseInitProps = {
     message: string;
     areaSize: number;
-    alive: number;
+    alives: number;
 }
 type ResponseNextProps = {
     generation: number,
@@ -19,13 +19,17 @@ type DataType = {
     alive: number,
     dead: number,
 }
+type SetDatasType = {
+    datas: DataType[];
+    setDatas: (datas: DataType[]) => void;
+}
 
-export const ServerComputing = () => {
+export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => {
     const [tmpAreaSize, setTmpAreaSize] = useState<number>();
     const [serverAreaSize, setServerAreaSize] = useState<number>();
     const [errorServerConnection, setErrorServerConnection] = useState<string>('');
     const [matrixTotalSize, setMatrixTotalSize] = useState<number>();
-    const [datas, setDatas] = useState<DataType[]>([]);
+    // const [datas, setDatas] = useState<DataType[]>([]);
     const [toggleCalculating, setToggleCalculating] = useState<boolean>(false);
     const [initialAlives, setInitialAlives] = useState<number>();
 
@@ -41,11 +45,11 @@ export const ServerComputing = () => {
             setTmpAreaSize(undefined);
             const data: DataType = {
                 dataKey: "0",
-                alive: serverInit.alive,
-                dead: matrixTotalSize! - serverInit.alive
+                alive: serverInit.alives,
+                dead: matrixTotalSize! - serverInit.alives
             };
             setDatas([data]);
-            setInitialAlives(serverInit.alive);
+            setInitialAlives(serverInit.alives);
         } else {
             console.error("confirmed matrix size is not a number");
             setServerAreaSize(undefined);
@@ -61,7 +65,7 @@ export const ServerComputing = () => {
                 alive: resp.alives,
                 dead: matrixTotalSize! - resp.alives
             };
-            setDatas(prevDatas => [...prevDatas, (data)]);
+            setDatas([...datas, (data)]);
         }
     }
 
@@ -97,9 +101,9 @@ export const ServerComputing = () => {
         }
 
         {serverAreaSize && <Typography>
-            Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize}, 
+            Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize},
             initial alives: {initialAlives} of {matrixTotalSize} cells
-            </Typography>}
+        </Typography>}
         {errorServerConnection && <Typography style={{ color: 'red' }}>{errorServerConnection}</Typography>}
 
         {serverAreaSize

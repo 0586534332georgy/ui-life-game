@@ -6,7 +6,7 @@ type InitProps = {
 type ResponseInitProps = {
   message: string;
   areaSize: number;
-  alive: number;
+  alives: number;
 }
 
 type ResponseNextProps = {
@@ -16,7 +16,6 @@ type ResponseNextProps = {
 
 export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<ResponseInitProps | null> => {
   let data: ResponseInitProps | null = null;
-  let res: number = -1;
   try {
     const response = await fetch(`http://localhost:5000/init/${areaSize}`, {
       method: 'POST',

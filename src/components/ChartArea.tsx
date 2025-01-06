@@ -37,8 +37,6 @@ type TooltipPayload = {
   );
 };
 
-type ChartAreaProps = {};
-type ChartAreaState = {};
 
 type DataType = {
     dataKey: string,
@@ -46,19 +44,20 @@ type DataType = {
     dead: number,
 }
 
-export default class ChartArea extends PureComponent<ChartAreaProps, ChartAreaState> {
+type DataTypeProps = {
+  data: DataType[];
+}
 
-constructor(props: ChartAreaProps, private _data: DataType[]) {
-  super(props);    
-};
+export default class ChartArea extends PureComponent<DataTypeProps> {
 
   render() {
+    const { data } = this.props; 
     return (
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           width={500}
           height={400}
-          data={this._data}
+          data={data}
           stackOffset="expand"
           margin={{
             top: 10,
