@@ -29,7 +29,6 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
     const [serverAreaSize, setServerAreaSize] = useState<number>();
     const [errorServerConnection, setErrorServerConnection] = useState<string>('');
     const [matrixTotalSize, setMatrixTotalSize] = useState<number>();
-    // const [datas, setDatas] = useState<DataType[]>([]);
     const [toggleCalculating, setToggleCalculating] = useState<boolean>(false);
     const [initialAlives, setInitialAlives] = useState<number>();
 
@@ -40,13 +39,14 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
         const serverInit: ResponseInitProps | null = await fetchServerInit({ areaSize: tmpAreaSize!, setErrorServerConnection });
         console.log("serverInit: ", serverInit);
         if (serverInit && typeof serverInit.areaSize === 'number' && serverInit.areaSize > 0) {
-            setMatrixTotalSize(serverInit.areaSize ** 2);
+            const areaSize_2: number = serverInit.areaSize * serverInit.areaSize;
+            setMatrixTotalSize(areaSize_2);
             setServerAreaSize(serverInit.areaSize);
             setTmpAreaSize(undefined);
             const data: DataType = {
                 dataKey: "0",
                 alive: serverInit.alives,
-                dead: matrixTotalSize! - serverInit.alives
+                dead: areaSize_2 - serverInit.alives
             };
             setDatas([data]);
             setInitialAlives(serverInit.alives);

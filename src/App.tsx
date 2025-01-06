@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ChartArea from './components/ChartArea';
 
+
 type DataType = {
   dataKey: string,
   alive: number,
@@ -31,10 +32,10 @@ function App() {
       height: '100vh', justifyContent: 'center'
     }}>
 
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+      {/*TODO <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}> */}
         {startGame && <Life areaSize={areaSize} gameTicInterval={gameTicInterval} />}
-        <ChartArea data={datas} />
-      </div>
+         <ChartArea data={datas} />
+      {/*TODO </div> */}
       
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
         <InputParameters areaSize={areaSize} ticInterval={gameTicInterval}
@@ -48,6 +49,7 @@ function App() {
         </Button>
 
         <ServerComputing datas={datas} setDatas={setDatas}/>
+        
       </div>
     </div>
   )
