@@ -13,7 +13,7 @@ type ResponseNextProps = {
   alives: number;
 }
 
-export const fetchServerInit = async ({areaSize, setErrorServerConnection}: InitProps): Promise<number> => {
+export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<number> => {
   let data: ResponseInitProps;
   let res: number = -1;
   try {
@@ -29,7 +29,7 @@ export const fetchServerInit = async ({areaSize, setErrorServerConnection}: Init
       const data = await response.json();
       setErrorServerConnection(data.message || 'Error initializing server');
       return NaN;
-  }
+    }
 
     data = await response.json();
     res = data.areaSize;
@@ -39,11 +39,11 @@ export const fetchServerInit = async ({areaSize, setErrorServerConnection}: Init
   } catch (error: any) {
     console.error('Error: ', error);
     if (error instanceof Error) {
-      setErrorServerConnection(error.message || 'Network error');
-  } else {
+      setErrorServerConnection(error.message);
+    } else {
       setErrorServerConnection('Unknown error');
-  }
-  return NaN;
+    }
+    return NaN;
   };
 
   return res;
@@ -62,7 +62,7 @@ export const fetchServerNext = async (): Promise<ResponseNextProps> => {
     console.log("generation: ", data.generation, "lives: ", data.alives);
 
   } catch (error: any) {
-    console.error('Error: ', error.text());
+    console.error('Error: ', error.message);
   };
 
   return data;
