@@ -1,19 +1,29 @@
 import { Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SendIcon from '@mui/icons-material/Send';
-import { fetchServerInit } from "../utils/fetchServer";
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import { fetchServerInit, fetchServerNext } from "../utils/fetchServer";
+//message: 'Life matrix initialized', areaSize
 
 export const ServerComputing = () => {
     const [tmpAreaSize, setTmpAreaSize] = useState<string>('');
+    const [serverAreaSize, setServerAreaSize] = useState<string>('');
+    const [errorServerConnection, setErrorServerConnection] = useState<string>('');
 
-    function hahdleServerConnection() {
-
+    async function handleServerConnection() {
+        const areaSize = parseInt(tmpAreaSize, 10);
+        const serverInit = await fetchServerInit({areaSize, setErrorServerConnection});
+        console.log("serverInit: ", serverInit);
+        if (typeof serverInit === 'number') {
+            setServerAreaSize(serverInit.toString());
+            setTmpAreaSize('');
+        } else {
+            console.error("serverInit is not a number");
+        }
     }
 
     function handleServerComputing() {
-        fetchServerInit(parseInt(tmpAreaSize, 10));
-        setTmpAreaSize('');
-
+        fetchServerNext();        
     }
 
     return (<div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -31,10 +41,22 @@ export const ServerComputing = () => {
             }} />
 
         {tmpAreaSize
+            && <Button onClick={handleServerConnection}
+                variant="contained"
+                sx={{ backgroundColor: 'green', margin: '10px' }}
+                endIcon={<SendIcon />}>
+                Test server connection
+            </Button>
+        }
+
+        {serverAreaSize && <Typography>Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize}</Typography>}
+        {errorServerConnection && <Typography>{errorServerConnection}</Typography>}
+
+        {serverAreaSize
             && <Button onClick={() => handleServerComputing()}
                 variant="contained"
                 sx={{ backgroundColor: 'orange', margin: '10px' }}
-                endIcon={<SendIcon />}>
+                endIcon={<PlayCircleOutlineIcon />}>
                 Execute computing on server
             </Button>
         }
