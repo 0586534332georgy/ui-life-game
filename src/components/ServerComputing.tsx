@@ -5,39 +5,50 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import { fetchServerInit, fetchServerNext } from "../utils/fetchServer";
 
+type ResponseInitProps = {
+    message: string;
+    areaSize: number;
+    alive: number;
+}
 type ResponseNextProps = {
     generation: number,
     alives: number;
 }
-
 type DataType = {
     dataKey: string,
     alive: number,
     dead: number,
 }
 
-
 export const ServerComputing = () => {
-    const [tmpAreaSize, setTmpAreaSize] = useState<string>('');
-    const [serverAreaSize, setServerAreaSize] = useState<string>('');
+    const [tmpAreaSize, setTmpAreaSize] = useState<number>();
+    const [serverAreaSize, setServerAreaSize] = useState<number>();
     const [errorServerConnection, setErrorServerConnection] = useState<string>('');
     const [matrixTotalSize, setMatrixTotalSize] = useState<number>();
     const [datas, setDatas] = useState<DataType[]>([]);
     const [toggleCalculating, setToggleCalculating] = useState<boolean>(false);
+    const [initialAlives, setInitialAlives] = useState<number>();
+
 
     async function handleServerConnection() {
         setDatas([]);
         setErrorServerConnection('');
-        const areaSize = parseInt(tmpAreaSize, 10);
-        const serverInit = await fetchServerInit({ areaSize, setErrorServerConnection });
+        const serverInit: ResponseInitProps | null = await fetchServerInit({ areaSize: tmpAreaSize!, setErrorServerConnection });
         console.log("serverInit: ", serverInit);
-        if (typeof serverInit === 'number' && serverInit > 0) {
-            setMatrixTotalSize(serverInit * serverInit);
-            setServerAreaSize(serverInit.toString());
-            setTmpAreaSize('');
+        if (serverInit && typeof serverInit.areaSize === 'number' && serverInit.areaSize > 0) {
+            setMatrixTotalSize(serverInit.areaSize ** 2);
+            setServerAreaSize(serverInit.areaSize);
+            setTmpAreaSize(undefined);
+            const data: DataType = {
+                dataKey: "0",
+                alive: serverInit.alive,
+                dead: matrixTotalSize! - serverInit.alive
+            };
+            setDatas([data]);
+            setInitialAlives(serverInit.alive);
         } else {
-            console.error("serverInit is not a number");
-            setServerAreaSize('');
+            console.error("confirmed matrix size is not a number");
+            setServerAreaSize(undefined);
         }
     }
 
@@ -71,8 +82,8 @@ export const ServerComputing = () => {
             variant="standard"
             onChange={e => {
                 if (!isNaN(Number(e.target.value))) {
-                    const value = e.target.value.replace("-", "");
-                    setTmpAreaSize(value)
+                    const value = e.target.value.replace('-', '').replace(/\./g, '');
+                    setTmpAreaSize(Number(value))
                 }
             }} />
 
@@ -85,7 +96,10 @@ export const ServerComputing = () => {
             </Button>
         }
 
-        {serverAreaSize && <Typography>Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize}</Typography>}
+        {serverAreaSize && <Typography>
+            Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize}, 
+            initial alives: {initialAlives} of {matrixTotalSize} cells
+            </Typography>}
         {errorServerConnection && <Typography style={{ color: 'red' }}>{errorServerConnection}</Typography>}
 
         {serverAreaSize

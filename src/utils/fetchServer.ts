@@ -4,17 +4,18 @@ type InitProps = {
 }
 
 type ResponseInitProps = {
+  message: string;
   areaSize: number;
-  setErrorServerConnection: (e: string) => void;
+  alive: number;
 }
 
 type ResponseNextProps = {
-  generation: number,
+  generation: number;
   alives: number;
 }
 
-export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<number> => {
-  let data: ResponseInitProps;
+export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<ResponseInitProps | null> => {
+  let data: ResponseInitProps | null = null;
   let res: number = -1;
   try {
     const response = await fetch(`http://localhost:5000/init/${areaSize}`, {
@@ -28,11 +29,9 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
     if (!response.ok) {
       const data = await response.json();
       setErrorServerConnection(data.message || 'Error initializing server');
-      return NaN;
     }
 
     data = await response.json();
-    res = data.areaSize;
 
     console.log(data);
 
@@ -43,10 +42,10 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
     } else {
       setErrorServerConnection('Unknown error');
     }
-    return NaN;
+
   };
 
-  return res;
+  return data;
 }
 
 export const fetchServerNext = async (): Promise<ResponseNextProps> => {
