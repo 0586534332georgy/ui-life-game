@@ -1,3 +1,5 @@
+import config from "../config/default-config.json"
+
 type InitProps = {
   areaSize: number;
   setErrorServerConnection: (e: string) => void;
@@ -14,10 +16,13 @@ type ResponseNextProps = {
   alives: number;
 }
 
+const serverHost = config["server-host"];
+const serverPort = config["server-port"];
+
 export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<ResponseInitProps | null> => {
   let data: ResponseInitProps | null = null;
   try {
-    const response = await fetch(`http://localhost:5000/init/${areaSize}`, {
+    const response = await fetch(`https://${serverHost}/init/${areaSize}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -50,7 +55,7 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
 export const fetchServerNext = async (): Promise<ResponseNextProps> => {
   let data: ResponseNextProps = { generation: -1, alives: -1 };
   try {
-    const response = await fetch(`http://localhost:5000/next`, {
+    const response = await fetch(`https://${serverHost}/next`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -1,4 +1,6 @@
 {
+    "server-host": "server-life-game.onrender.com",
+    "server-port": "5000",
     "game-area-size": 10,
     "game-tic-interval": 1000,
     "min-cell-size": 4
