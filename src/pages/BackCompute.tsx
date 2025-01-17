@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import ChartArea from '../components/ChartArea';
 import { ServerComputing } from '../components/ServerComputing';
-
-type DataType = {
-    dataKey: string,
-    alive: number,
-    dead: number,
-}
+import { DataType } from '../model/types';
 
 export const BackCompute: React.FC = () => {
 

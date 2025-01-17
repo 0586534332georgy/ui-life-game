@@ -60,7 +60,7 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
   return data;
 }
 
-export const fetchServerNext = async (): Promise<ResponseNextProps> => {
+export const fetchServerNext = async (setErrorServerConnection: (e: string) => void): Promise<ResponseNextProps> => {
   let data: ResponseNextProps = { generation: -1, alives: -1 };
   try {
     const response = await fetch(`https://${serverHost}/next`, {
@@ -74,6 +74,7 @@ export const fetchServerNext = async (): Promise<ResponseNextProps> => {
 
   } catch (error: any) {
     console.error('Error: ', error.message);
+    setErrorServerConnection(error.message);
   };
 
   return data;
