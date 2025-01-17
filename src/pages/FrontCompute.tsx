@@ -18,7 +18,7 @@ export const FrontCompute: React.FC = () => {
     return (
         <div className="FrontCompute" style={{
             display: 'flex', flexDirection: 'row',
-            height: '100vh', justifyContent: 'center'
+            height: '100vh', justifyContent: 'space-around'
         }}>
 
             {startGame && <Life areaSize={areaSize} gameTicInterval={gameTicInterval} />}

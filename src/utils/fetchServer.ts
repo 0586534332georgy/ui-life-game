@@ -30,9 +30,17 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
       body: JSON.stringify({ key: 'value' })
     });
 
+    if (response.status == 400) {
+      const data = await response.json();
+      setErrorServerConnection(data.message);
+      return null;
+
+    }
+
     if (!response.ok) {
       const data = await response.json();
       setErrorServerConnection(data.message || 'Error initializing server');
+      return null;
     }
 
     data = await response.json();

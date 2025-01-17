@@ -51,7 +51,7 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
             setDatas([data]);
             setInitialAlives(serverInit.alives);
         } else {
-            console.error("confirmed matrix size is not a number");
+            console.error("confirmed matrix size is not a suitable number");
             setServerAreaSize(undefined);
         }
     }
@@ -81,7 +81,7 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
 
         <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Server computing</Typography>
         <Typography variant="subtitle1" gutterBottom>Input game area for server computig, cells</Typography>
-        <TextField id="standard-basic" label="recomended: x 1'000"
+        <TextField id="standard-basic" label="[10 - 1'000]"
             value={tmpAreaSize}
             variant="standard"
             onChange={e => {
@@ -101,7 +101,7 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
         }
 
         {serverAreaSize && <Typography>
-            Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize},
+            Life matrix initialized on server: {serverAreaSize}&times;{serverAreaSize}, <br/>
             initial alives: {initialAlives} of {matrixTotalSize} cells
         </Typography>}
         {errorServerConnection && <Typography style={{ color: 'red' }}>{errorServerConnection}</Typography>}
@@ -112,7 +112,7 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
                 handleServerComputing();
             }}
                 variant="contained"
-                sx={{ backgroundColor: 'orange', margin: '10px' }}
+                sx={{ backgroundColor: 'green', margin: '10px' }}
                 endIcon={<PlayCircleOutlineIcon />}>
                 Execute computing on server
             </Button>
