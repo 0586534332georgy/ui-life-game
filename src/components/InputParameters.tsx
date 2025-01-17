@@ -7,9 +7,14 @@ type Params = {
     setAreaSize: (s: number) => void;
     setTicInterval: (t: number) => void;
     handleStartGame: () => void;
+    tmpTic: number | undefined;
+    setTmpTic: (n: number) => void;
+    setFlPause: (b: boolean) => void;
 }
 
-export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAreaSize, setTicInterval, handleStartGame }) => {
+export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAreaSize, setTicInterval, handleStartGame, tmpTic, setTmpTic, setFlPause }) => {
+    const mYard: number = 1_000_000_000;
+    const onPause: string = 'now on pause';
     const [tmpAreaSize, setTmpAreaSize] = useState<string>('');
     const [tmpTicInterval, setTmpTicInterval] = useState<string>('');
 
@@ -18,14 +23,19 @@ export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAr
             setAreaSize(Number(tmpAreaSize));
             handleStartGame();
         }
-        if (tmpTicInterval) setTicInterval(Number(tmpTicInterval));
+        if (tmpTicInterval) {
+            const num: number = Number(tmpTicInterval);
+            setTicInterval(num);
+            setTmpTic(num);
+            setFlPause(false);
+        }
         setTmpAreaSize('');
         setTmpTicInterval('');
     }
 
     const buttonText = tmpAreaSize ? 'Set parameters and start new Game' : 'Set new tic for current Game';
     const areaLabel = `now is ${areaSize}`;
-    const ticLabel = `now is ${ticInterval}`;
+    const ticLabel = ticInterval == mYard ? onPause : `now is ${ticInterval}`;
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -38,18 +48,18 @@ export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAr
                 onChange={e => {
                     if (!isNaN(Number(e.target.value))) {
                         const value = e.target.value.replace("-", "");
-                        setTmpAreaSize(value);
+                        setTmpAreaSize(value);                        
                     }
                 }} />
 
             <Typography variant="subtitle1" gutterBottom>Input tic interval, ms</Typography>
             <TextField id="standard-basic" label={ticLabel} variant="standard"
-                placeholder={ticInterval.toString()}
+                placeholder={ticInterval == mYard ? tmpTic!.toString() : ticInterval.toString()}
                 value={tmpTicInterval}
                 onChange={e => {
                     if (!isNaN(Number(e.target.value))) {
                         const value = e.target.value.replace("-", "");
-                        setTmpTicInterval(value)
+                        setTmpTicInterval(value);
                     }
                 }} />
 
