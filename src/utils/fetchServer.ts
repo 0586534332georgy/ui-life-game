@@ -1,3 +1,4 @@
+import { wait } from "@testing-library/user-event/dist/utils";
 import config from "../config/default-config.json"
 
 type InitProps = {
@@ -78,4 +79,21 @@ export const fetchServerNext = async (setErrorServerConnection: (e: string) => v
   };
 
   return data;
+}
+
+export const fetchServerWakeUp = async (): Promise<string> => {
+  try {
+    const response = await fetch(`https://${serverHost}/wakeup`, {
+      method: 'GET'
+    });
+    if (response.status === 200) {
+      return 'Server is awake!';
+    } else {
+      throw new Error(`Failed to wake up the server. Status: ${response.status}`);
+    }
+
+  } catch (e: any) {
+    console.error('Error: ', e.message);
+    throw new Error(e.message || 'An unknown error occurred');
+  }
 }
