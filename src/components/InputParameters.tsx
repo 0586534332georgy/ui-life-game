@@ -20,7 +20,10 @@ export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAr
 
     function handleNewParams() {
         if (tmpAreaSize) {
-            setAreaSize(Number(tmpAreaSize));
+            let value: number = Number(tmpAreaSize);
+            if(Number(tmpAreaSize) < 10) value = 10;
+            if(Number(tmpAreaSize) > 100) value = 100;
+            setAreaSize(value);
             handleStartGame();
         }
         if (tmpTicInterval) {
@@ -41,15 +44,16 @@ export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAr
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h1>Game parameters:</h1>
             <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Live view</Typography>
-            <Typography variant="subtitle1" gutterBottom>Input area size, cells</Typography>
+            <Typography variant="subtitle1" gutterBottom>Input area size, cells: [10 - 1000]</Typography>
             <TextField id="standard-basic" label={areaLabel} variant="standard"
                 value={tmpAreaSize}
                 placeholder={areaSize.toString()}
                 onChange={e => {
-                    if (!isNaN(Number(e.target.value))) {
-                        const value = e.target.value.replace("-", "");
-                        setTmpAreaSize(value);                        
-                    }
+                    if (e.target.value.length < 7) {
+                        if (!isNaN(Number(e.target.value))) {
+                            const value = e.target.value.replace("-", "");
+                            setTmpAreaSize(value);                        
+                    }}
                 }} />
 
             <Typography variant="subtitle1" gutterBottom>Input tic interval, ms</Typography>
@@ -57,10 +61,11 @@ export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAr
                 placeholder={ticInterval == mYard ? tmpTic!.toString() : ticInterval.toString()}
                 value={tmpTicInterval}
                 onChange={e => {
-                    if (!isNaN(Number(e.target.value))) {
-                        const value = e.target.value.replace("-", "");
-                        setTmpTicInterval(value);
-                    }
+                    if (e.target.value.length < 7) {
+                        if (!isNaN(Number(e.target.value))) {
+                            const value = e.target.value.replace("-", "");
+                            setTmpTicInterval(value);
+                    }}
                 }} />
 
             {(tmpAreaSize || tmpTicInterval)

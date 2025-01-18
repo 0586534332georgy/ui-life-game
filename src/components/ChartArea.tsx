@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, TooltipProps, ResponsiveContainer } from 'recharts';
+import { DataType } from '../model/types';
 
 const toPercent = (decimal: number, fixed = 0): string => `${(decimal * 100).toFixed(fixed)}%`;
 
@@ -36,13 +37,6 @@ type TooltipPayload = {
     </div>
   );
 };
-
-
-type DataType = {
-    dataKey: string,
-    alive: number,
-    dead: number,
-}
 
 type DataTypeProps = {
   data: DataType[];
