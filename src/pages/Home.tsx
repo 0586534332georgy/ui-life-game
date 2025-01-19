@@ -2,12 +2,18 @@ import { List, ListItem, Typography } from "@mui/material"
 import { DetailsText } from "../components/DetailsText"
 import CircleIcon from '@mui/icons-material/Circle';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import { Life } from "../components/Life";
+import default_config from '../config/default-config.json'
+import pattern_config from '../config/pattern-config.json'
 
 export const Home: React.FC = () => {
+    const gameTicInterval: number = default_config["game-tic-interval"];
+    const defaultCellWith: number = pattern_config.octagon.defaultCellWith;
 
     return (
         <>
             <div className="flex flex-col m-4 ">
+                <Life areaSize={"octagon"} gameTicInterval={gameTicInterval} defaultCellWith={defaultCellWith} />
                 <Typography className="shadow-md p-4">
                     This website is dedicated to the study of certain aspects of the "Game of Life" cellular automaton. In addition to cyclic patterns, as presented on other similar platforms (e.g., https://conwaylife.com/), I am particularly interested in addressing the following questions:
                     <List>

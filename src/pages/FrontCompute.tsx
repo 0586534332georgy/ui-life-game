@@ -14,7 +14,6 @@ export const FrontCompute: React.FC = () => {
     const [gameTicInterval, setGameTicInterval] = useState<number>(config["game-tic-interval"]);
     const [tpmTic, setTmpTic] = useState<number>();
     const [startGame, setStartGame] = useState<boolean>(false);
-    const [flStop, setFlStop] = useState<boolean>(false);
     const [flPause, setFlPause] = useState<boolean>(false);
 
     function handleStartGame() {

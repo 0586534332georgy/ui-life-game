@@ -1,13 +1,14 @@
 import Row from "./Row"
 
 type Props = {
-    lifeArray:  number[][];
+    lifeArray: number[][];
+    defaultCellWith?: number;
 }
-const Matrix: React.FC<Props> = ({lifeArray}) => {
+const Matrix: React.FC<Props> = ({ lifeArray, defaultCellWith }) => {
 
     function getMatrix() {
-        return lifeArray.map((row, index) =>            
-                <Row key={index} cells={row} />)
+        return lifeArray.map((row, index) =>
+            <Row key={index} cells={row} defaultCellWith={defaultCellWith} />)
     }
 
     return (

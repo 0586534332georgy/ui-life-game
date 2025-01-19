@@ -2,13 +2,15 @@ import config from '../config/default-config.json'
 
 type Props = {
     cells: number[];
+    defaultCellWith?: number;
 }
 
-const Row: React.FC<Props> = ({cells}) => {
+const Row: React.FC<Props> = ({cells, defaultCellWith}) => {
     const minSellSize = config["min-cell-size"];
     let cellSize = `${minSellSize}px`;
 
-    const calculateCellWith = Math.min(window.innerHeight, window.innerWidth) / cells.length - 2;
+    const calculateCellWith = defaultCellWith? defaultCellWith : 
+                Math.min(window.innerHeight, window.innerWidth) / cells.length - 2;
 
     if(calculateCellWith > minSellSize) {
         cellSize = `${calculateCellWith}px`;
