@@ -42,19 +42,24 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
     }, [countdown])
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-around">
+            <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Server computing</Typography>
 
-        {serverResponse && <div className="flex flex-row text-green-600"><LightbulbIcon /> <Typography>{serverResponse}</Typography></div>}
-        {serverError && <div className="flex flex-row text-red-600"><LightbulbIcon /> <Typography>{serverError}</Typography></div>}
-        {!serverResponse && !serverError && <div className="flex flex-row text-orange-500"><LightbulbIcon /> <Typography>Wait server response... {countdown}</Typography></div>}
 
-        <ServerConnection setDatas={setDatas} setServerAreaSize={setServerAreaSize}
-            setInitialAlives={setInitialAlives} />
+            {serverResponse && <div className="flex flex-row text-green-600"><LightbulbIcon />
+                <Typography>{serverResponse}</Typography></div>}
+            {serverError && <div className="flex flex-row text-red-600"><LightbulbIcon />
+                <Typography>{serverError}</Typography></div>}
+            {!serverResponse && !serverError && <div className="flex flex-row text-orange-500"><LightbulbIcon />
+                <Typography>Wait until the server is awake... {countdown}</Typography></div>}
 
-        {serverAreaSize &&
-            <ServerGeneration datas={datas} setDatas={setDatas} serverAreaSize={serverAreaSize}
-                initialAlives={initialAlives!} />
-        }
+            <ServerConnection setDatas={setDatas} serverAreaSize={serverAreaSize} setServerAreaSize={setServerAreaSize}
+                setInitialAlives={setInitialAlives} />
 
-    </div>)
+            {serverAreaSize &&
+                <ServerGeneration datas={datas} setDatas={setDatas} serverAreaSize={serverAreaSize} setServerAreaSize={setServerAreaSize}
+                    initialAlives={initialAlives!} />
+            }
+
+        </div>)
 }

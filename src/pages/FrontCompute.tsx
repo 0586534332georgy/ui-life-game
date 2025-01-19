@@ -70,7 +70,7 @@ export const FrontCompute: React.FC = () => {
                 }
 
                 {startGame && <Button variant="contained"
-                    style={{ fontSize: '20px', backgroundColor: 'lightpink', margin: "10px" }}
+                    style={{ fontSize: '20px', backgroundColor: 'violet', margin: "10px" }}
                     onClick={() => {
                         if (tpmTic) {
                             setGameTicInterval(tpmTic);
