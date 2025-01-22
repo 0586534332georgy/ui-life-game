@@ -5,11 +5,11 @@ import StorageIcon from '@mui/icons-material/Storage';
 
 export const DetailsText: React.FC = (): JSX.Element => {
     return (
-        <div className='m-4' >
+        <div className="w-full">
             <Typography className="bg-orange-200 p-4 flex justify-center">
                 <span className="font-bold">Sources and resources:</span>
             </Typography>
-            <Typography className="bg-orange-100 shadow-md p-4">
+            <Typography className="bg-orange-100 p-4">
                 <List>
                     <ListItem>
                         <ComputerIcon className="p-1" />
@@ -21,14 +21,18 @@ export const DetailsText: React.FC = (): JSX.Element => {
                     </ListItem>
                     <ListItem>
                         <GitHubIcon className="p-1" />
-                        https://github.com/0586534332georgy/ui-life-game
+                        https://github.com/<wbr />0586534332georgy/<wbr />ui-life-game
                     </ListItem>
                     <ListItem>
                         <GitHubIcon className="p-1" />
-                        https://github.com/0586534332georgy/server-life-game
+                        https://github.com/<wbr />0586534332georgy/<wbr />server-life-game
                     </ListItem>
                 </List>
+            </Typography>
+            <Typography className="bg-orange-100 p-4 flex justify-center">
                 <span className="font-bold">API endpoints:</span>
+            </Typography>
+            <Typography className="bg-orange-100 shadow-md p-4">
                 <List>
                     <ListItem>
                         <ul>
