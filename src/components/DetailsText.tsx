@@ -5,9 +5,11 @@ import StorageIcon from '@mui/icons-material/Storage';
 
 export const DetailsText: React.FC = (): JSX.Element => {
     return (
-        <div className='mt-4 mb-4' >
-            <Typography className="bg-orange-100 shadow-md p-4">
+        <div className='m-4' >
+            <Typography className="bg-orange-200 p-4 flex justify-center">
                 <span className="font-bold">Sources and resources:</span>
+            </Typography>
+            <Typography className="bg-orange-100 shadow-md p-4">
                 <List>
                     <ListItem>
                         <ComputerIcon className="p-1" />

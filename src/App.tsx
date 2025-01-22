@@ -4,6 +4,7 @@ import { Layout } from './components/navigators/Layout';
 import { Home } from './pages/Home';
 import { FrontCompute } from './pages/FrontCompute';
 import { BackCompute } from './pages/BackCompute';
+import { ProjectDetails } from './pages/ProjectDetails';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='front-compute' element={<FrontCompute />} />
           <Route path='back-compute' element={<BackCompute />} />
+          <Route path='details' element={<ProjectDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
