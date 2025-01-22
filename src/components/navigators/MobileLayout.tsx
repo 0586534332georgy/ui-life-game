@@ -15,50 +15,53 @@ export const MobileLayout: React.FC = () => {
   };
 
   return (
-    <>
-    <div className='flex flex-col justify-center bg-slate-600'>
-      <Button
-      style={{ color: 'lightpink' }}
-        id="mobile-button"
-        aria-controls={open ? 'mobile-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        className="text-lightpink"
-      >
-        Menu
-      </Button>
-      <Menu
-        id="mobile-menu"
-        aria-labelledby="mobile-button"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <div className='bg-slate-600'>
-        <MenuItem  onClick={handleClose}>
-            <NavLink className="text-slate-100"  to="/">Project Details</NavLink>
-        </MenuItem>
-        <MenuItem  onClick={handleClose}>
-            <NavLink className="text-slate-100" to="/front-compute">Front Compute</NavLink>
-        </MenuItem>
-        <MenuItem  onClick={handleClose}>
-            <NavLink className="text-slate-100" to="/back-compute">Back Compute</NavLink>
-        </MenuItem>
-        </div>
-      </Menu>
-      
+    <div className='min-h-screen flex flex-col'>
+      <div className='flex flex-col bg-slate-600 w-full py-2 fixed top-0 left-0 z-10'> 
+        <Button
+          style={{ color: 'orange' }}
+          id="mobile-button"
+          aria-controls={open ? 'mobile-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          className="text-lightpink"
+        >
+          Menu
+        </Button>
+        <Menu
+          id="mobile-menu"
+          aria-labelledby="mobile-button"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+            <MenuItem onClick={handleClose}>
+              <NavLink className="text-slate-800" to="/">Project Details</NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <NavLink className="text-slate-800" to="/front-compute">Front Compute</NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <NavLink className="text-slate-800" to="/back-compute">Back Compute</NavLink>
+            </MenuItem>
+        </Menu>
+
+      </div>
+      <div className='flex-1 pt-[60px] pb-[20px] overflow-y-scroll scrollbar-hide'>
+      <Outlet></Outlet>
+      </div>
+      <span className='m-0 w-full bg-slate-600 text-slate-100 flex items-center justify-center py-2 fixed bottom-0 left-0 z-10'>
+        0586534332georgy@gmail.com
+      </span>
+
     </div>
-    <Outlet></Outlet>
-    </>
   );
-}               
-          
+}

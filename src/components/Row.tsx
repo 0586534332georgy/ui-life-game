@@ -22,7 +22,7 @@ const Row: React.FC<Props> = ({cells, defaultCellWith}) => {
 
     function getStyles(cell: number): React.CSSProperties {
         return cell == 0 ? {
-            backgroundColor:  'lightgray',
+            backgroundColor:  '#e2e8f0',
             borderStyle: 'solid',
             borderWidth: '1px',
             borderColor: 'white',
