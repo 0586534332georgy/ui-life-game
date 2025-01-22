@@ -41,40 +41,45 @@ export const InputParameters: React.FC<Params> = ({ areaSize, ticInterval, setAr
     const ticLabel = ticInterval == mYard ? onPause : `now is ${ticInterval}`;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h1>Game parameters:</h1>
-            <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Live view</Typography>
-            <Typography variant="subtitle1" gutterBottom>Input area size, cells: [10 - 1000]</Typography>
-            <TextField id="standard-basic" label={areaLabel} variant="standard"
-                value={tmpAreaSize}
-                placeholder={areaSize.toString()}
-                onChange={e => {
-                    if (e.target.value.length < 7) {
-                        if (!isNaN(Number(e.target.value))) {
-                            const value = e.target.value.replace("-", "");
-                            setTmpAreaSize(value);                        
-                    }}
-                }} />
+        <div className='flex flex-col'>
 
-            <Typography variant="subtitle1" gutterBottom>Input tic interval, ms</Typography>
-            <TextField id="standard-basic" label={ticLabel} variant="standard"
-                placeholder={ticInterval == mYard ? tmpTic!.toString() : ticInterval.toString()}
-                value={tmpTicInterval}
-                onChange={e => {
-                    if (e.target.value.length < 7) {
-                        if (!isNaN(Number(e.target.value))) {
-                            const value = e.target.value.replace("-", "");
-                            setTmpTicInterval(value);
-                    }}
-                }} />
+            <div className="m-4 flex flex-col items-center"> 
+                <Typography variant="subtitle2" gutterBottom>Input area size, cells: [10 - 1000]</Typography>
+                <TextField id="standard-basic" label={areaLabel} variant="standard"
+                    value={tmpAreaSize}
+                    placeholder={areaSize.toString()}
+                    onChange={e => {
+                        if (e.target.value.length < 7) {
+                            if (!isNaN(Number(e.target.value))) {
+                                const value = e.target.value.replace("-", "");
+                                setTmpAreaSize(value);                        
+                        }}
+                    }} />
+            </div>
+
+            <div className="m-4 flex flex-col items-center">
+                <Typography variant="subtitle2" gutterBottom>Input tic interval, ms</Typography>
+                <TextField id="standard-basic" label={ticLabel} variant="standard"
+                    placeholder={ticInterval == mYard ? tmpTic!.toString() : ticInterval.toString()}
+                    value={tmpTicInterval}
+                    onChange={e => {
+                        if (e.target.value.length < 7) {
+                            if (!isNaN(Number(e.target.value))) {
+                                const value = e.target.value.replace("-", "");
+                                setTmpTicInterval(value);
+                        }}
+                    }} />
+            </div>    
 
             {(tmpAreaSize || tmpTicInterval)
                 &&
-                <Button variant="outlined"
-                    style={{ color: "green", margin: '10px' }}
-                    onClick={() => handleNewParams()}>
-                    {buttonText}
-                </Button>
+                <div className="m-4">
+                    <Button variant="outlined"
+                        style={{ color: "green", margin: '10px' }}
+                        onClick={() => handleNewParams()}>
+                        {buttonText}
+                    </Button>
+                </div>
             }
         </div>
     )

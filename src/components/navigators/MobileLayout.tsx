@@ -47,10 +47,10 @@ export const MobileLayout: React.FC = () => {
             <NavLink className="text-slate-800" to="/">Home</NavLink>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <NavLink className="text-slate-800" to="/front-compute">Front Compute</NavLink>
+            <NavLink className="text-slate-800" to="/front-compute">Front-end Calculation</NavLink>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <NavLink className="text-slate-800" to="/back-compute">Back Compute</NavLink>
+            <NavLink className="text-slate-800" to="/back-compute">Back-end Calculation</NavLink>
           </MenuItem>
           <MenuItem onClick={handleClose}>
             <NavLink className="text-slate-800" to="/details">Project Details</NavLink>
@@ -60,7 +60,7 @@ export const MobileLayout: React.FC = () => {
       <div className='flex-1 pt-[60px] pb-[20px] overflow-y-scroll scrollbar-hide'>
         <Outlet></Outlet>
       </div>
-      <span className='m-0 w-full bg-slate-600 text-slate-100 flex items-center justify-center py-2 fixed bottom-0 left-0 z-10'>
+      <span className='m-0 w-full bg-slate-600 text-slate-100 flex items-center justify-center py-1 fixed bottom-0 left-0 z-10'>
         0586534332georgy@gmail.com
       </span>
     </div>

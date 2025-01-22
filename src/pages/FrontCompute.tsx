@@ -2,12 +2,11 @@ import { InputParameters } from "../components/InputParameters";
 import { Life } from "../components/Life";
 import { useState } from "react";
 import config from '../config/default-config.json'
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import NotStartedOutlinedIcon from '@mui/icons-material/NotStartedOutlined';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import PauseCircleOutlinedIcon from '@mui/icons-material/PauseCircleOutlined';
-
 
 export const FrontCompute: React.FC = () => {
     const [areaSize, setAreaSize] = useState<number>(config["game-area-size"]);
@@ -22,17 +21,19 @@ export const FrontCompute: React.FC = () => {
     }
 
     return (
-        <div className="FrontCompute" style={{
-            display: 'flex', flexDirection: 'row',
-            height: '100vh', justifyContent: 'space-around'
-        }}>
+
+        <div className="flex flex-col sm:flex-row w-full justify-center">
 
             {startGame && <Life areaSize={areaSize} gameTicInterval={gameTicInterval} />}
 
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+            <div className="flex flex-col items-center">
+                <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Front-end Calculation</Typography>    
+                <Typography>Game parameters:</Typography>  
+
+
                 <InputParameters areaSize={areaSize} ticInterval={gameTicInterval}
-                    setAreaSize={setAreaSize} setTicInterval={setGameTicInterval} handleStartGame={handleStartGame} 
-                    tmpTic={tpmTic} setTmpTic={setTmpTic} setFlPause={setFlPause}/>
+                    setAreaSize={setAreaSize} setTicInterval={setGameTicInterval} handleStartGame={handleStartGame}
+                    tmpTic={tpmTic} setTmpTic={setTmpTic} setFlPause={setFlPause} />
 
                 <Button variant="contained"
                     style={{ fontSize: '20px', backgroundColor: 'lightgreen', margin: "10px" }}
@@ -62,7 +63,7 @@ export const FrontCompute: React.FC = () => {
                     style={{ fontSize: '20px', backgroundColor: 'olivedrab', margin: "10px" }}
                     onClick={() => {
                         setGameTicInterval(tpmTic!);
-                        setFlPause(false);                        
+                        setFlPause(false);
                     }}
                     endIcon={<NotStartedOutlinedIcon />}>
                     Continue the Game
@@ -77,16 +78,13 @@ export const FrontCompute: React.FC = () => {
                         }
                         setFlPause(false);
                         setStartGame(false);
-                        }
+                    }
                     }
                     endIcon={<StopCircleOutlinedIcon />}>
                     Stop the Game
                 </Button>
                 }
-
-
             </div>
         </div>
     )
-
 }

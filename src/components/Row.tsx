@@ -10,7 +10,7 @@ const Row: React.FC<Props> = ({cells, defaultCellWith}) => {
     let cellSize = `${minSellSize}px`;
 
     const calculateCellWith = defaultCellWith? defaultCellWith : 
-                Math.min(window.innerHeight, window.innerWidth) / cells.length - 2;
+                Math.min(window.innerHeight * 0.9 , window.innerWidth) / cells.length ;
 
     if(calculateCellWith > minSellSize) {
         cellSize = `${calculateCellWith}px`;
