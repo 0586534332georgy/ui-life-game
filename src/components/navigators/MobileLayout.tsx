@@ -16,7 +16,7 @@ export const MobileLayout: React.FC = () => {
 
   return (
     <div className='min-h-screen flex flex-col'>
-      <div className='flex flex-col bg-slate-600 w-full py-2 fixed top-0 left-0 z-10'>
+      <div className='flex flex-col bg-slate-600 w-full py-2 fixed top-0 left-0 z-10'> 
         <Button
           style={{ color: 'orange' }}
           id="mobile-button"

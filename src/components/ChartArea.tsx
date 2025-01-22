@@ -56,13 +56,13 @@ export default class ChartArea extends PureComponent<DataTypeProps> {
           margin={{
             top: 10,
             right: 30,
-            left: 0,
-            bottom: 0,
+            left: 10,
+            bottom: 10,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey='dataKey' />
-          <YAxis tickFormatter={toPercent} />
+          <YAxis tickFormatter={(value) => toPercent(value, 1)} />
           <Tooltip content={renderTooltipContent as unknown as TooltipProps<number, string>['content']} />          
           <Area type="monotone" dataKey="alive" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
           <Area type="monotone" dataKey="dead" stackId="1" stroke="#ffc658" fill="#ffc658" />

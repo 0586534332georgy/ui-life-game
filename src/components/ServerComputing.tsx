@@ -7,8 +7,8 @@ import { Typography } from "@mui/material";
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 type SetDatasType = {
-    datas: DataType[];
-    setDatas: (datas: DataType[]) => void;
+    datas: DataType[] | undefined;
+    setDatas: (datas: DataType[] | undefined) => void;
 }
 
 export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => {
@@ -42,8 +42,8 @@ export const ServerComputing: React.FC<SetDatasType> = ({ datas, setDatas }) => 
     }, [countdown])
 
     return (
-        <div className="flex flex-col justify-around">
-            <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Server computing</Typography>
+        <div className="flex flex-col justify-center items-center">
+            <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Back-end Calculation</Typography>
 
 
             {serverResponse && <div className="flex flex-row text-green-600"><LightbulbIcon />

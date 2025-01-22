@@ -26,7 +26,7 @@ export const FrontCompute: React.FC = () => {
 
             {startGame && <Life areaSize={areaSize} gameTicInterval={gameTicInterval} />}
 
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center justify-center">
                 <Typography variant="button" gutterBottom sx={{ display: 'block', fontWeight: 'bold' }}>Front-end Calculation</Typography>    
                 <Typography>Game parameters:</Typography>  
 

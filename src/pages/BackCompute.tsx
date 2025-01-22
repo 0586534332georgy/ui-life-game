@@ -5,17 +5,12 @@ import { DataType } from '../model/types';
 
 export const BackCompute: React.FC = () => {
 
-    const [datas, setDatas] = useState<DataType[]>([]);
+    const [datas, setDatas] = useState<DataType[]>();
 
     return (
-        <div className="BackCompute" style={{
-            display: 'flex', flexDirection: 'row',
-            height: '100vh', justifyContent: 'center'
-        }}>
-
-            <ChartArea data={datas} />
+        <div className='flex flex-col sm:flex-row justify-center h-[90vh] overflow-y-scroll scrollbar-hide'>
+            {datas && <ChartArea data={datas} />}
             <ServerComputing datas={datas} setDatas={setDatas} />
-
         </div>
     )
 

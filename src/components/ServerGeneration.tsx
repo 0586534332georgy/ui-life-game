@@ -13,8 +13,8 @@ type ResponseNextProps = {
 }
 
 type Props = {
-    datas: DataType[];
-    setDatas: (datas: DataType[]) => void;
+    datas: DataType[] | undefined;
+    setDatas: (datas: DataType[] | undefined) => void;
     serverAreaSize: number;
     setServerAreaSize: (n: number | undefined) => void;
     initialAlives: number
@@ -37,7 +37,7 @@ export const ServerGeneration: React.FC<Props> = ({ datas, setDatas, serverAreaS
                 alive: resp.alives,
                 dead: matrixTotalSize - resp.alives
             };
-            setDatas([...datas, (data)]);
+            setDatas([...datas!, (data)]);
         }
     }
 
@@ -96,7 +96,10 @@ export const ServerGeneration: React.FC<Props> = ({ datas, setDatas, serverAreaS
 
             {(toggleCalculating || flPause) &&
                 <Button onClick={() => {
+                    setToggleCalculating(false);
                     setServerAreaSize(undefined);
+                    setTimeout(() => setDatas(undefined), 500);
+                    
                 }
                 }
                     variant="contained"

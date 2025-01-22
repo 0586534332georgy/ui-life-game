@@ -44,7 +44,9 @@ export const ServerConnection: React.FC<Props> = ({ setDatas, serverAreaSize, se
 
     return (
         <>
-            <Typography variant="subtitle1" gutterBottom>Input game area for server computig, cells</Typography>
+            {!serverAreaSize && 
+            <>
+            <Typography variant="subtitle2" gutterBottom>Input game area for server computig, cells</Typography>
             <TextField id="standard-basic" label="[10 - 1'000]"
                 value={tmpAreaSize}
                 variant="standard"
@@ -54,6 +56,7 @@ export const ServerConnection: React.FC<Props> = ({ setDatas, serverAreaSize, se
                         setTmpAreaSize(Number(value))
                     }
                 }} />
+                </>}
 
             {tmpAreaSize && !serverAreaSize
                 && <Button onClick={() => handleServerConnection()}
