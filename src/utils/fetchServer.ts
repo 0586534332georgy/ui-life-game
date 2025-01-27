@@ -1,4 +1,3 @@
-import { wait } from "@testing-library/user-event/dist/utils";
 import config from "../config/default-config.json"
 
 type InitProps = {
@@ -28,6 +27,7 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({ key: 'value' })
     });
 
@@ -68,8 +68,17 @@ export const fetchServerNext = async (setErrorServerConnection: (e: string) => v
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include',
     });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Error response from /next:", errorData);
+      setErrorServerConnection(errorData.message || 'Error fetching next generation');
+      return data;  }
+
+
     data = await response.json();
     console.log("generation: ", data.generation, "lives: ", data.alives);
 

@@ -32,6 +32,12 @@ export const ServerGeneration: React.FC<Props> = ({ datas, setDatas, serverAreaS
         if (toggleCalculating) {
 
             const resp: ResponseNextProps = await fetchServerNext(setErrorServerConnection);
+
+            if (resp.generation === -1 || resp.alives === -1) {
+                console.error("Failed to fetch next generation");
+                return;
+            }
+
             const data: DataType = {
                 dataKey: resp.generation.toString(),
                 alive: resp.alives,
