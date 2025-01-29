@@ -22,7 +22,7 @@ const serverPort = config["server-port"];
 export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<ResponseInitProps | null> => {
   let data: ResponseInitProps | null = null;
   try {
-    const response = await fetch(`https://${serverHost}/init/${areaSize}`, {
+    const response = await fetch(`https://${serverHost}/api/init/${areaSize}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,15 +32,15 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
     });
 
     if (response.status == 400) {
-      const data = await response.json();
-      setErrorServerConnection(data.message);
+      const errorData = await response.json();
+      setErrorServerConnection(errorData.message);
       return null;
 
     }
 
     if (!response.ok) {
-      const data = await response.json();
-      setErrorServerConnection(data.message || 'Error initializing server');
+      const errorData = await response.json();
+      setErrorServerConnection(errorData.message || 'Error initializing server');
       return null;
     }
 
@@ -64,11 +64,8 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
 export const fetchServerNext = async (setErrorServerConnection: (e: string) => void): Promise<ResponseNextProps> => {
   let data: ResponseNextProps = { generation: -1, alives: -1 };
   try {
-    const response = await fetch(`https://${serverHost}/next`, {
+    const response = await fetch(`https://${serverHost}/api/next`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
       credentials: 'include',
     });
 
@@ -92,7 +89,7 @@ export const fetchServerNext = async (setErrorServerConnection: (e: string) => v
 
 export const fetchServerWakeUp = async (): Promise<string> => {
   try {
-    const response = await fetch(`https://${serverHost}/wakeup`, {
+    const response = await fetch(`https://${serverHost}/api/wakeup`, {
       method: 'GET'
     });
     if (response.status === 200) {
