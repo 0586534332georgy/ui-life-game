@@ -1,6 +1,7 @@
 {
+    "server-protocol": "https",
     "server-host": "server-life-game.onrender.com",
-    "server-port": "5000",
+    "server-port": "443",
     "game-area-size": 10,
     "game-tic-interval": 1000,
     "min-cell-size": 4
