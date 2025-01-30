@@ -2,9 +2,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(
-    '/api',
+    '/proxy',
     createProxyMiddleware({
-      target: 'https://server-life-game.onrender.com:443',
+      target: 'https://server-life-game.onrender.com/api',
       changeOrigin: true,
     })
   );

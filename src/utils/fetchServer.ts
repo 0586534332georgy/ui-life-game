@@ -1,5 +1,3 @@
-import config from "../config/default-config.json"
-
 type InitProps = {
   areaSize: number;
   setErrorServerConnection: (e: string) => void;
@@ -16,14 +14,10 @@ type ResponseNextProps = {
   alives: number;
 }
 
-const serverProtocol = config["server-protocol"];
-const serverHost = config["server-host"];
-const serverPort = config["server-port"];
-
 export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<ResponseInitProps | null> => {
   let data: ResponseInitProps | null = null;
   try {
-    const response = await fetch(`/init/${areaSize}`, {
+    const response = await fetch(`/proxy/init/${areaSize}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -65,7 +59,7 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
 export const fetchServerNext = async (setErrorServerConnection: (e: string) => void): Promise<ResponseNextProps> => {
   let data: ResponseNextProps = { generation: -1, alives: -1 };
   try {
-    const response = await fetch(`/next`, {
+    const response = await fetch('/proxy/next', {
       method: 'POST',
       credentials: 'include',
     });
@@ -90,7 +84,7 @@ export const fetchServerNext = async (setErrorServerConnection: (e: string) => v
 
 export const fetchServerWakeUp = async (): Promise<string> => {
   try {
-    const response = await fetch(`/wakeup`, {
+    const response = await fetch('/proxy/wakeup', {
       method: 'GET'
     });
     if (response.status === 200) {
