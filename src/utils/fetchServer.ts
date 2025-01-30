@@ -23,7 +23,7 @@ const serverPort = config["server-port"];
 export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: InitProps): Promise<ResponseInitProps | null> => {
   let data: ResponseInitProps | null = null;
   try {
-    const response = await fetch(`${serverProtocol}://${serverHost}:${serverPort}/api/init/${areaSize}`, {
+    const response = await fetch(`/init/${areaSize}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export const fetchServerInit = async ({ areaSize, setErrorServerConnection }: In
 export const fetchServerNext = async (setErrorServerConnection: (e: string) => void): Promise<ResponseNextProps> => {
   let data: ResponseNextProps = { generation: -1, alives: -1 };
   try {
-    const response = await fetch(`${serverProtocol}://${serverHost}:${serverPort}/api/next`, {
+    const response = await fetch(`/next`, {
       method: 'POST',
       credentials: 'include',
     });
@@ -90,7 +90,7 @@ export const fetchServerNext = async (setErrorServerConnection: (e: string) => v
 
 export const fetchServerWakeUp = async (): Promise<string> => {
   try {
-    const response = await fetch(`${serverProtocol}://${serverHost}:${serverPort}/api/wakeup`, {
+    const response = await fetch(`/wakeup`, {
       method: 'GET'
     });
     if (response.status === 200) {
